@@ -6,7 +6,14 @@ class HandDetector():
         self.max_hands=max_hands
         self.capture=cv2.VideoCapture(0)
         self.mpHands=mp.solutions.hands
-        self.hands=self.mpHands(self.mode,self.max_hands)
+        self.hands = self.mpHands.Hands(
+    static_image_mode=self.mode,
+    max_num_hands=self.max_hands,
+    model_complexity=1,
+    min_detection_confidence=0.5,
+    min_tracking_confidence=0.5
+)
+
         self.mpDraw=mp.solutions.drawing_utils
     def fdHands(self,frame,draw=True):
         self.results=self.hands.process(frame)
